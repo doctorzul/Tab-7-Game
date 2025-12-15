@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Tâb 7</title>
+    <link rel="stylesheet" href="css/styleV6.css">
+    <link rel="stylesheet" href="css/tabuleiroV4.css">
+    <link rel="stylesheet" href="css/dadosV4.css">
+
+    <!-- script src="js/tabuleiroONLINE.js"></script> <!--tem de estar antes do comms.js!!!-->
+    <script src="js/navegacaoV4.js"></script>
+    <script src="js/dadosV5.js"></script>
+    <!-- script src="js/classificacoesV8.js"></script> <!--tem de estar antes do iniciar_sessao.js e tabuleiro!!!-->
+    <!-- script src="js/iniciar_sessaoV2.js"></script> -->
+    <script src="js/tabuleiroV9.js"></script>
+    <!-- script src="js/comms.js"></script> -->
+
+    <script src="js/github.js"></script> <!-- GitHub Modifications -->
+
+    <link rel="icon" type="image/x-icon" href="png/7.png">
+</head>
+
+<body>
+    <!--CABEÇALHO-->
+    <div class="header">
+        <button class="nope-1" id="">Classificações</button> <!--CLASSIFICAÇÕES-->
+        <button class="header-button-2" id="open-inst">Instruções</button> <!--INSTRUÇÕES-->
+        <button class="nope-2" id="">Iniciar Sessão</button>
+        <input type="password" class="nope-3" placeholder="Password" id="password" readonly>
+        <input type="text" class="nope-3" placeholder="User" id="user" readonly>
+    </div>
+    <!--CABEÇALHO-->
+
+    <!--CLASSIFICAÇÕES
+    <div class="pop-up-overlay" id="classif-overlay">
+        <div class="pop-up">
+            <h2>Classificações:</h2>
+
+            <h3>Offline:</h3>
+            <table class="listaC" id="lista-offline-classificacoes"></table>
+
+            <h3>Online:</h3>
+            <table class="listaC" id="lista-online-classificacoes"></table>
+            <label for="board-size">Tamanho do Tabuleiro</label>
+            <select id="classif-board-size">
+                <option value="7">7</option>
+                <option value="9">9</option>
+                <option value="11" selected>11</option>
+                <option value="13">13</option>
+                <option value="15">15</option>
+            </select>
+            <button class="header-button-2" id="online-classif">Selecionar</button>
+            <button class="header-button-2" id="close-classif">Fechar</button>
+        </div>
+    </div>
+    CLASSIFICAÇÕES-->
+
+    <!--INSTRUÇÕES-->
+    <div class="pop-up-overlay" id="inst-overlay">
+        <div class="pop-up">
+            <h1>Como jogar?</h1>
+            <div id="tutorial-content">
+                <div class="tutorial-step active">
+                    <h2>Tabuleiro e peças</h2>
+                    <p>O Tâb é um jogo para dois jogadores, disputado num tabuleiro com quatro linhas e um número ímpar de colunas,
+                        podendo variar entre sete e quinze. Cada jogador possui tantas peças quantas as colunas e utiliza uma cor distinta do adversário.
+                        As peças são colocadas junto ao respetivo lado e, embora ambos joguem no mesmo tabuleiro, a perspetiva de cada um é invertida.
+                        Cada peça pode encontrar-se em três estados: ainda não iniciou o movimento, já se moveu mas não alcançou a quarta linha,
+                        ou já chegou (pelo menos uma vez) à última linha.
+                    </p>
+                </div>
+                <div class="tutorial-step">
+                    <h2>Dados</h2>
+                    <p>Em vez de um dado tradicional, utilizam-se quatro paus com duas faces diferentes: uma clara e plana,
+                        correspondente ao interior do pau, e outra escura e arredondada, correspondente à casca. Para lançar,
+                        os paus são segurados juntos na mão e depois soltos, ficando cada um virado para uma das faces.
+                        Conta-se o número de faces claras voltadas para cima e esse total determina o valor do movimento,
+                        com a particularidade de que se não houver nenhuma face clara, ou seja, soma zero, o valor é considerado seis.
+                        Assim, os resultados possíveis são 1, 2, 3, 4 e 6. Os valores 1, 4 e 6 concedem o direito a lançar novamente,
+                        sendo o 2 o valor mais frequente e o 6 o mais raro.
+                    </p>
+                </div>
+                <div class="tutorial-step">
+                    <h2>Início e regras de movimento</h2>
+                    <p>A primeira vez que uma peça é movida, só o pode fazer com o valor 1 (chamado Tâb). Se sair 4 ou 6,
+                        o jogador repete o lançamento até conseguir o 1. Quando se escolhe uma peça para mover,
+                        ela avança exatamente o número de casas indicado, desde que a casa de destino não esteja ocupada por outra peça do mesmo jogador.
+                        O sentido de deslocação depende da linha: nas linhas primeira e terceira move-se da esquerda para a direita,
+                        nas linhas segunda e quarta move-se da direita para a esquerda. Quando chega ao fim de uma linha,
+                        a peça transita para a seguinte, da primeira passa para a segunda, da segunda para a terceira,
+                        e da terceira pode passar à quarta ou regressar à segunda. Ao sair da quarta volta sempre à terceira,
+                        nunca regressando à linha inicial.
+                    </p>
+                </div>
+                <div class="tutorial-step">
+                    <h2>Capturas e restrições</h2>
+                    <p>Não pode haver mais do que uma peça da mesma cor na mesma casa.
+                        Se uma peça terminar o movimento numa casa ocupada por uma peça adversária, esta é capturada e retirada do tabuleiro.
+                        Uma peça que já tenha entrado na quarta linha adquire um estatuto especial,
+                        só pode voltar a mover-se se já não existirem peças suas na primeira linha e nunca mais pode regressar à linha inicial.
+                        Estas restrições aumentam a necessidade de planear com antecedência e criam situações estratégicas em que, por vezes,
+                        é melhor atrasar ou impedir que certas peças avancem demasiado cedo.
+                    </p>
+                </div>
+                <div class="tutorial-step">
+                    <h2>Passar de vez e fim do jogo</h2>
+                    <p>Pode ocorrer que o valor obtido ao lançar os paus não permita mover nenhuma peça e, simultaneamente,
+                        não dê direito a novo lançamento. Nessa situação, o jogador é obrigado a passar a vez. Contudo,
+                        não lhe é permitido fazê-lo se existir pelo menos uma jogada válida ou a possibilidade de lançar novamente.
+                        A partida termina quando um dos jogadores fica sem peças no tabuleiro e, nesse momento, o adversário é declarado vencedor.
+                    </p>
+                </div>
+                </div>
+                <div class="button-stylist">
+                <button class="header-button-2" id="anterior" onclick="previousStep()">« Anterior</button>
+                <button class="header-button-2" id="close-inst">Fechar</button>
+                <button class="header-button-2" id="proximo" onclick="nextStep()">Próximo »</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--INSTRUÇÕES-->
+
+    <div id="app">
+        
+        <!--MENU-->
+        <div id="menu-view" class="view active">
+            <img src="png/Tab7.png" alt="Tâb Sete">
+            <div class="button-container">
+                <button onclick="warning()">Jogar Online (Desativado)</button>
+                <button onclick="navigateTo('configs')">Jogar Offline</button>
+            </div>
+        </div>
+        <!--MENU-->
+
+        <!--Configurações Pré-Jogo-->
+        <br><br><br><br><br><br>
+        <div id="configs" class="view">
+            <h2>Configurações</h2>
+            <div class="config-container">
+                
+                <label for="level-ai">Nível do AI</label>
+                <select id="level-ai">
+                    <option value="easy" selected>Fácil</option>
+                    <option value="hard">Difícil</option>
+                </select>
+
+                <label for="board-size">Tamanho do Tabuleiro</label>
+                <select id="board-size">
+                    <option value="7">7</option>
+                    <option value="9">9</option>
+                    <option value="11" selected>11</option>
+                    <option value="13">13</option>
+                    <option value="15">15</option>
+                </select>
+
+                <label for="first-player">Cor</label>
+                <select id="first-player">
+                    <option value="player1" selected>Laranja</option>
+                    <option value="player2">Azul</option>
+                </select>
+            </div>
+
+            <div class="button-stylist">
+                <button onclick="main()">Iniciar Jogo!</button>
+            </div>
+            <div class="button-stylist">
+                <button onclick="navigateTo('menu-view')">Voltar ao Menu</button>
+            </div>
+        </div>
+        <!--Configurações Pré-Jogo-->
+
+        <!--Jogo-->
+        <div id="game-area" style="display:none; text-align:center;">
+            <h2>Tâb 7</h2>
+            <div id="counter"></div>
+            <!--<br><br><br>-->
+            <div id="board-wrapper">
+                <div id="board"></div>
+            </div>
+            <div id="turn-popup" class="turn-popup"></div>
+            <div id="sticks"></div>
+
+            <div class="button-stylist">
+                <div class="button-container">
+                    <button id="throwBtn">Lançar Dado</button>
+                    <button id="resetBtn">! » Passar Ronda « !</button>
+                    <button id="desistir">Desistir</button>
+                </div>
+            </div>
+
+            <div class="info">
+                <p>Valor: <span class="result" id="value"></span></p>
+                <p>Contagem: <span class="result" id="clearCount"></span></p>
+                <p>Repetir? <span class="result" id="repeatInfo"></span></p>
+            </div>
+
+            <pre id="log"></pre>
+        </div>
+
+    <!-- configuracoes ONLINE
+    <div id="online-view" class="view">
+            <h2>Configurações ONLINE</h2>
+            <div class="config-container">
+                <label for="online-board-size">Tamanho do Tabuleiro</label>
+                <select id="online-board-size">
+                    <option value="7">7</option>
+                    <option value="9">9</option>
+                    <option value="11" selected>11</option>
+                    <option value="13">13</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+            <div class="button-stylist">
+                <button onclick="join()">Iniciar Jogo!</button>
+            </div>
+            <div class="button-stylist">
+                <button onclick="sairOnline()">Voltar ao Menu</button>
+            </div>
+    </div>
+
+    <div id="wait-players" class="view">
+        <h2>A espera de outro jogador...</h2>
+        <p>Podes sair desta área sem consequência!</p>
+        <p>O jogo iniciará automáticamente.</p>
+        <div class="button-stylist">
+            <button onclick="sairOnline()">Voltar ao Menu</button>
+        </div>
+    </div>
+
+        <!-- Jogo ONLINE
+        <div id="online-game-area" style="display:none; text-align:center;">
+            <h2>Tâb 7</h2>
+            <div id="online-board-wrapper">
+                <div id="online-board"></div>
+            </div>
+            <div id="online-counter"></div>
+            <div id="online-turn-popup" class="turn-popup"></div>
+            <div id="online-sticks"></div>
+
+            <div class="button-stylist">
+                <div class="button-container">
+                    <button id="online-throwBtn">Lançar Dado</button>
+                    <button id="online-passBtn">! » Passar Ronda « !</button>
+                    <button id="online-desistir">Desistir</button>
+                </div>
+            </div>
+
+            <div class="info">
+                <p>Valor: <span class="result" id="online-value"></span></p>
+                <p>Contagem: <span class="result" id="online-clearCount"></span></p>
+                <p>Repetir? <span class="result" id="online-repeatInfo"></span></p>
+            </div>
+
+            <pre id="online-log"></pre>
+        </div>
+    Jogo ONLINE -->
+
+    </div>
+</body>
+</html>
