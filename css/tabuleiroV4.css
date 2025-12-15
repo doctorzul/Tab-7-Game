@@ -1,0 +1,283 @@
+/*
+#6400FF <-- AZUL
+orange <-- LARANJA
+*/
+
+#board {
+    display: grid;
+    grid-auto-rows: 72px;
+    gap: 0;
+    justify-content: center;
+    margin: 20px auto;
+    user-select: none;
+}
+
+.cell {
+    background: #00C194;
+    border: 4px solid #00604A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.cell.highlighted {
+    background-color: rgba(255, 255, 255, 0.25);
+    transition: background 0.2s;
+}
+
+.cell:hover {
+    transform: scale(1.05);
+}
+
+.cell.selected {
+    background: white;
+    transform: scale(1.05);
+}
+
+.cell {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.cell.clickable:hover {
+    background: white;
+    cursor: pointer;
+}
+
+.circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: auto;
+    border: 4px solid transparent;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.circle:hover {
+    transform: scale(1.05);
+}
+
+.circle.red {
+    background-color: orange;
+}
+
+.circle.blue {
+    background-color: #6400FF;
+}
+
+.circle.promovido {
+    border: 4px solid white;
+}
+
+.circle.moved {
+    border: 4px dashed white;
+}
+
+.circle.unmoved {
+    border: 4px solid transparent;
+}
+
+/* debug - remover eventualmente??? */
+#log {
+    background: #111;
+    color: #0f0;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    width: 100%;
+    max-width: 520px;
+    overflow: auto;
+    margin: 10px auto;
+    text-align: left;
+    font-family: monospace;
+}
+
+/* Cenas do Pop-up da Ronda */
+.turn-popup {
+    position: fixed;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%) translateX(-150%);
+    background-color: #00C194;
+    border: 4px solid #00604A;
+    color: #00604A;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 20px 30px;
+    border-radius: 20px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.4s ease;
+    z-index: 5;
+}
+
+.turn-popup.show {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+.turn-popup.blue-turn {
+    background-color: #6400FF;
+    color: white;
+}
+
+.turn-popup.red-turn {
+    background-color: orange;
+    color: white;
+}
+
+/* Cenas da Tabela das Capturas */
+#board-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+#counter {
+    background-color: #00C194;
+    border: 3px solid #00604A;
+    color: #00604A;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px 16px;
+    text-align: center;
+    opacity: 1;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+#counter strong {
+    display: block;
+    font-size: 17px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.score-row {
+    margin: 8px 0;
+    padding: 6px 0;
+    border-radius: 0;
+    border: 1px solid transparent;
+}
+
+.score-blue {
+    background: white;
+    border: 3px solid #6400FF;
+    color: #6400FF;
+}
+
+.score-red {
+    background: white;
+    border: 3px solid orange;
+    color: orange;
+}
+
+.score-number {
+    font-size: 18px;
+    font-weight: 900;
+    display: block;
+    margin-top: 3px;
+}
+
+/* Botão Vitória */
+.vitoria {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.vitoria.show {
+    opacity: 1;
+}
+
+.vitoria-content {
+    background: #00C194;
+    border: 3px solid #00604A;
+    color: black;
+    padding: 30px 50px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.vitoria-content h2 {
+    margin-bottom: 20px;
+}
+
+.vitoria-content button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    background-color: orange;
+    border: 3px solid #00604A;
+    color: black;
+    cursor: pointer;
+}
+
+.vitoria-content button:hover {
+    background-color: white;
+    color: #00604A;
+    transform: scale(1.1);
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-5px);
+    }
+
+    40% {
+        transform: translateX(5px);
+    }
+
+    60% {
+        transform: translateX(-5px);
+    }
+
+    80% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.illegal-move {
+    border: 4px solid red;
+    animation: shake 0.25s;
+}
